@@ -1,7 +1,7 @@
 "use strict";
 
 import { getRequestAccessToken } from "./token";
-import { logger } from "./logger";
+import { logger, accessLogFilter } from "./logger";
 import { jsonGet } from "./httpUtil";
 
 import express from "express";
@@ -41,7 +41,8 @@ function fetchPatient(patient_id, access_token) {
 
 
 const app=express()
-	.set("view engine", "jade");
+	.set("view engine", "jade")
+	.use(accessLogFilter);
 
 
 nunjucks.configure("views", {
@@ -53,10 +54,10 @@ app.get('/', (req, res)=>{
 	res.render("home.html");
 });
 
+// Fetch the patients data and render in a template
 app.get('/patient/:id', getRequestAccessToken, (req, res, next)=>{
 
 	fetchPatient(req.params.id, req.params.access_token).then((results)=>{
-		logger.debug("Got results: %d", results.length);
 		res.render("patient.html", {
 			patient: results[0],
 			everything: results[1],
