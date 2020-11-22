@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block extra_header %}
+    <title>{{ patient.name[0].text }}</title>
+{% endblock %}
+
+{% block body %}
+    <h2>Request</h2>
+    <p><b>Access Token:</b> {{ access_token }}</p>
+    <p><b>Patient ID:</b> {{patient.id}}</p>
+
+    <h2>Data</h2>
+    {{patient.text.div|safe}}
+
+    <h2>Everything</h2>
+    {% for record in everything.entry %}
+        {{record.resource.text.div|safe}}
+    {% endfor %}
+{% endblock %}
