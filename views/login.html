@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block extra_header %}
+    <title> 1up Login</title>
+{% endblock %}
+
+{% block body %}
+	<form action="/login" method="post">
+		<div class="login-box">
+			{% if error!=null %}
+				<label class="error">{{error}}</label><br />
+			{% endif %}
+			<label for="password">Access code</label> <br/>
+			<input id="password" name="password" type="password"/><br />
+			<button type="submit" value="Submit">Login</button>
+			<input id="target" name="target" type="hidden" value="{{target|safe}}" />
+		</div>
+	</form>
+{% endblock %}
