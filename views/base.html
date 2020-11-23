@@ -6,6 +6,28 @@
             body {
                 font-family: arial, sansserif;
             }
+            table.patient-list {
+                border-collapse: collapse;
+                border: 1px solid darkgray;
+                margin-left: 5px;
+                margin-right: 10px;
+                margin-top: 10px;
+                width: 99%;
+            }
+            table.patient-list td,tr {
+                border: 1px solid darkgray;
+            }
+            table.patient-list th {
+                border: 1px solid darkgray;
+                background-color: lightgray;
+            }
+            td.patient_id {
+                width: 8em;
+            }
+            button {
+                margin-left: 5px;
+                border-radius: 7px;
+            }
         </style>
         {% block extra_header %}{% endblock %}
     </head>

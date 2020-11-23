@@ -5,5 +5,19 @@
 {% endblock %}
 
 {% block body %}
-    <h2>Hello World</h2>
+	<a href="/add_patient"/><button>Add Patient</button></a>
+    <table class="patient-list">
+    	<tr>
+    		<th>Patient</td>
+    		<th class="patient_id">ID</td>
+    	</tr>
+    	{% for entry in bundle.entry %}
+    		<tr>
+    			<td><a href="/patient/{{entry.resource.id}}">
+    				{{entry.resource.name[0].text}}
+    			</a></td>
+    			<td class="patient_id">{{entry.resource.id}}</td>
+    		</tr>
+    	{% endfor %}
+    </table>
 {% endblock %}

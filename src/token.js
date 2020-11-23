@@ -84,6 +84,8 @@ const appToken = new Token('campenberger', '602b2b207b084f339334446fe4eec064', '
 function getRequestAccessToken(req, res, next) {
 	appToken.getAccessToken((error, token)=>{
 		if(error==null) {
+			req.params.client_id = appToken.client_id;
+			req.params.app_user_id = appToken.user_id;
 			req.params.access_token=token.access_token;
 			next();
 		} else {
