@@ -27,6 +27,7 @@ The easiest way to run the application is through the following steps:
 
 ## Running in a development environment
 
+* Use node v10. It probably will work with newer version, but this is what I had at hand.
 * Like before register an application in the 1up developer console
 * Install the required node modules with ```npm install```
 * Copy env.inc.sample to env.inc and customize the settings
