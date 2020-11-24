@@ -9,10 +9,15 @@ import nunjucks from 'nunjucks'
 import cookieSession from 'cookie-session'
 import querystring from 'querystring'
 
-const port = 5000
-const healthSystemId = 4707
+const port = parseInt(process.env.PORT || "5000", 10)
+const healthSystemId = process.env.SYSTEM_ID || "4707"
+const appPassword = process.env.APP_PASSWORD || 'Geheim'
+const sessionCookieName = process.env.SESSION_COOKIE_NAME || "1up"
+const sessionCookieMaxAge = parseInt(process.env.SESSION_TIMEOUT || "60",10) * 60000
+const sessionSecret = process.env.SESSION_SECRET || "SuperGeheim"
+
 const loginUrl = '/login'
-const appPassword = 'Geheim'
+
 
 // Fetches the patient record and the $everything queri for a
 // patient by patient_id and returns an all promise with the results
@@ -81,10 +86,9 @@ const app = express()
     .use(accessLogFilter)
     .use(express.urlencoded({ extended: true }))
     .use(cookieSession({
-        name: '1up',
-        // 1 hour
-        maxAge: 1 * 60 * 60 * 1000,
-        secret: 'SuperGeheim'
+        name: sessionCookieName,
+        maxAge: sessionCookieMaxAge,
+        secret: sessionSecret
     }))
 
 // configure the templating system
@@ -127,7 +131,8 @@ app.get('/add_patient', loginFilter(loginUrl), getRequestAccessToken, (req, res,
     res.redirect(302, redirectUrl)
 })
 
-// login page
+// login page get handler to render the page. It will redirect to the
+// targetPage, if the user is already logged in.
 app.get('/login', (req, res, next) => {
     const targetPage = req.query.target || '/'
     if (req.session.userIsLoggedIn) {
@@ -143,6 +148,9 @@ app.get('/login', (req, res, next) => {
     }
 })
 
+// login page post handler, that attempts to login in the user. If successful
+// or when the user is already logged in, it redirects to the target page. If the
+// attempt fails, it redirects to the login page, with an error message
 app.post('/login', (req, res, next) => {
     const targetPage = req.body.target || '/'
     if (req.session.userIsLoggedIn) {
@@ -160,6 +168,7 @@ app.post('/login', (req, res, next) => {
     }
 })
 
+// start the application server
 app.listen(port, () => {
     logger.info('Express listen on %d', port)
 })

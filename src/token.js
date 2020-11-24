@@ -73,7 +73,7 @@ class Token {
 /**
  * The application token initialized with the application settings.
  */
-const appToken = new Token('campenberger', '602b2b207b084f339334446fe4eec064', 'eEbeZvRuVUepGo8pJGCuAtGXVQTsd7eX')
+const appToken = new Token(process.env.APP_USER_ID, process.env.CLIENT_ID, process.env.CLIENT_SECRET)
 
 /**
  * Express app middleware that makes sure we have an access token and injects

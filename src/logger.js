@@ -9,9 +9,8 @@ import morgan from 'morgan'
  * but can be overwritten by an environment variable.
  */
 const logger = createLogger({
-    // level: 'info',
     transports: [
-        new transports.Console({ level: 'debug' })
+        new transports.Console({ level: (process.env.LOGLEVEL || "warn") })
     ],
     format: format.combine(format.timestamp(), format.splat(), format.printf((info) => {
         return `${info.timestamp} ${info.level} ${info.message}`
