@@ -9,15 +9,14 @@ import nunjucks from 'nunjucks'
 import cookieSession from 'cookie-session'
 import querystring from 'querystring'
 
-const port = parseInt(process.env.PORT || "5000", 10)
-const healthSystemId = process.env.SYSTEM_ID || "4707"
+const port = parseInt(process.env.PORT || '5000', 10)
+const healthSystemId = process.env.SYSTEM_ID || '4707'
 const appPassword = process.env.APP_PASSWORD || 'Geheim'
-const sessionCookieName = process.env.SESSION_COOKIE_NAME || "1up"
-const sessionCookieMaxAge = parseInt(process.env.SESSION_TIMEOUT || "60",10) * 60000
-const sessionSecret = process.env.SESSION_SECRET || "SuperGeheim"
+const sessionCookieName = process.env.SESSION_COOKIE_NAME || '1up'
+const sessionCookieMaxAge = parseInt(process.env.SESSION_TIMEOUT || '60', 10) * 60000
+const sessionSecret = process.env.SESSION_SECRET || 'SuperGeheim'
 
 const loginUrl = '/login'
-
 
 // Fetches the patient record and the $everything queri for a
 // patient by patient_id and returns an all promise with the results

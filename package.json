@@ -19,5 +19,11 @@
 		"eslint-plugin-import": "^2.22.1",
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-promise": "^4.2.1"
-	}
+	},
+	"scripts": {
+        "clean": "rm -rf ./build",
+        "compile": "npm run clean && ./node_modules/.bin/babel ./src -d ./build",
+        "lint": "./node_modules/.bin/eslint src",
+        "build": "npm run lint && npm run compile"
+    }
 }

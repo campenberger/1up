@@ -10,7 +10,7 @@ import morgan from 'morgan'
  */
 const logger = createLogger({
     transports: [
-        new transports.Console({ level: (process.env.LOGLEVEL || "warn") })
+        new transports.Console({ level: (process.env.LOGLEVEL || 'warn') })
     ],
     format: format.combine(format.timestamp(), format.splat(), format.printf((info) => {
         return `${info.timestamp} ${info.level} ${info.message}`
@@ -26,7 +26,7 @@ morgan.format('http', ':remote-user :remote-addr :method :url HTTP/:http-version
 const accessLogFilter = morgan('http', {
     stream: {
         write: (message) => {
-            logger.info(message)
+            logger.info(message.replace(/\r?\n|\r/g, ''))
         }
     }
 })
