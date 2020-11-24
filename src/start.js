@@ -98,6 +98,7 @@ nunjucks.configure('views', {
 
 // Default landing page with list of linked patients
 app.get('/', loginFilter(loginUrl), getRequestAccessToken, (req, res, next) => {
+    res.set('Cache-Control', 'no-store')
     fetchPatientList(req.params.access_token)
         .then((result) => {
             res.render('home.html', { bundle: result })
@@ -110,6 +111,7 @@ app.get('/', loginFilter(loginUrl), getRequestAccessToken, (req, res, next) => {
 
 // Fetch the patients data and render in a template
 app.get('/patient/:id', loginFilter(loginUrl), getRequestAccessToken, (req, res, next) => {
+    res.set('Cache-Control', 'no-store')
     fetchPatient(req.params.id, req.params.access_token)
         .then((results) => {
             res.render('patient.html', {
@@ -133,6 +135,7 @@ app.get('/add_patient', loginFilter(loginUrl), getRequestAccessToken, (req, res,
 // login page get handler to render the page. It will redirect to the
 // targetPage, if the user is already logged in.
 app.get('/login', (req, res, next) => {
+    res.set('Cache-Control', 'no-store')
     const targetPage = req.query.target || '/'
     if (req.session.userIsLoggedIn) {
         logger.debug('User already logged in, redirecting to %s', targetPage)
@@ -151,6 +154,7 @@ app.get('/login', (req, res, next) => {
 // or when the user is already logged in, it redirects to the target page. If the
 // attempt fails, it redirects to the login page, with an error message
 app.post('/login', (req, res, next) => {
+    res.set('Cache-Control', 'no-store')
     const targetPage = req.body.target || '/'
     if (req.session.userIsLoggedIn) {
         res.redirect(302, targetPage)

@@ -24,6 +24,6 @@
         "clean": "rm -rf ./build",
         "compile": "npm run clean && ./node_modules/.bin/babel ./src -d ./build",
         "lint": "./node_modules/.bin/eslint src",
-        "build": "npm run lint && npm run compile"
+        "build": "npm run lint && npm run compile && docker build -t 1up ."
     }
 }
